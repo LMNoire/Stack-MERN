@@ -1,21 +1,54 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import TagInput from "../../components/Input/TagInput";
+import { MdClose } from "react-icons/md";
 
 const AddEditNotes = (props) => {
+  const { onClose, type } = props;
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [tags, setTags] = useState([]);
- 
+  const [error, setError] = useState(null);
+
+  const addNewNote = async () => {};
+
+  const editNote = async () => {};
+
+  const handleAddNote = () => {
+    if (!title) {
+      setError("Please enter the title");
+      return;
+    }
+    if (!content) {
+      setError("Please enter the content");
+      return;
+    }
+
+    setError("");
+
+    if (type === "edit") {
+      editNote();
+    } else {
+      addNewNote();
+    }
+  };
+
   return (
-    <div>
+    <div className="relative">
+      <button
+        className="w-10 h-10 rounded-full flex items-center justify-center absolute -top-3 -right-3 hover:bg-slate-50"
+        onClick={onClose}
+      >
+        <MdClose className="text-xl text-slate-400" />
+      </button>
+
       <div className="flex flex-col gap-2">
         <label className="input-label">TITLE</label>
         <input
           type="text"
           className="text-2xl text-slate-950 outline-none"
-          placeholder="Go to Gym"
+          placeholder="Enter the title..."
           value={title}
           onChange={({ target }) => setTitle(target.value)}
         />
@@ -26,7 +59,7 @@ const AddEditNotes = (props) => {
         <textarea
           type="text"
           className="text-sm text-slate-950 outline-none bg-slate-50 p-2 rounded"
-          placeholder="Content"
+          placeholder="Enter your content..."
           rows={10}
           value={content}
           onChange={({ target }) => setContent(target.value)}
@@ -38,7 +71,12 @@ const AddEditNotes = (props) => {
         <TagInput tags={tags} setTags={setTags} />
       </div>
 
-      <button className="btn-primary font-medium mt-5 p-3" onClick={props.onAdd}>
+      {error && <p className="text-red-500 text-xs pt-4">{error}</p>}
+
+      <button
+        className="btn-primary font-medium mt-5 p-3"
+        onClick={handleAddNote}
+      >
         ADD
       </button>
     </div>
@@ -46,7 +84,8 @@ const AddEditNotes = (props) => {
 };
 
 AddEditNotes.propTypes = {
-  onAdd: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  type: PropTypes.oneOf(["add", "edit"]).isRequired,
 };
 
 export default AddEditNotes;
