@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 
 mongoose.connect(config.connectionString);
 
+const User = require("./models/user.model");
+
 const express = require("express");
 const cors = require("cors");
 const app = express();
@@ -31,9 +33,36 @@ app.post("/create-account", async (req, res) => {
     return res.status(400).json({ error: true, Message: "Email is required" });
   }
   if (!password) {
-    return res.status(400).json({ error: true, Message: "Password is required"});
+    return res
+      .status(400)
+      .json({ error: true, Message: "Password is required" });
   }
 
+  const isUser = await User.findOne({ email: email });
+  if (isUser) {
+    return res.json({
+      error: true,
+      Message: "User already exist",
+    });
+  }
+
+  const user = new User({
+    fullName,
+    email,
+    password,
+  });
+  await user.save();
+
+  const accessToken = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "30m"
+  })
+
+  return res.json({
+    error: false,
+    user,
+    accessToken,
+    message: "Registration successful"
+  })
 });
 
 app.listen(3001);

@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema({
+const Schema = mongoose.Schema;
+
+const userSchema = new Schema({ 
   fullName: { type: String },
   email: { type: String },
-  createdOn: { type: Date, default: new Date().getTime() },
+  createdOn: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model("User", userSchema);
