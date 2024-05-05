@@ -28,12 +28,10 @@ app.post("/create-account", async (req, res) => {
   const { fullName, email, password } = req.body;
 
   if (!fullName || !email || !password) {
-    return res
-      .status(400)
-      .json({
-        error: true,
-        message: "Full name, email, and password are required",
-      });
+    return res.status(400).json({
+      error: true,
+      message: "Full name, email, and password are required",
+    });
   }
 
   const isUser = await User.findOne({ email: email });
@@ -96,44 +94,82 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/add-note", authenticateToken, async (req, res) => {
-    const { title, content, tags } = req.body;
-    const { user } = req.user;
+  const { title, content, tags } = req.body;
+  const { user } = req.user;
 
-    if (!title) {
-        return res.status(400).json({
-            error: true,
-            Message: "Title is required"
-        })
+  if (!title) {
+    return res.status(400).json({
+      error: true,
+      Message: "Title is required",
+    });
+  }
+  if (!content) {
+    return res.status(400).json({
+      error: true,
+      Message: "Content is required",
+    });
+  }
+
+  try {
+    const note = new Note({
+      title,
+      content,
+      tags: tags || [],
+      userId: user._id,
+    });
+
+    await note.save();
+
+    return res.json({
+      error: false,
+      note,
+      Message: "Note added successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: true,
+      Message: "Internal server error",
+    });
+  }
+});
+
+app.put("/edit-note/:noteId", authenticateToken, async (req, res) => {
+  const noteId = req.params.noteId;
+  const { title, content, tags, isPinned } = req.body;
+  const { user } = req.user;
+
+  if (!title && !content && !tags) {
+    return res
+      .status(400)
+      .json({ error: true, Message: "No changes provided" });
+  }
+
+  try {
+    const note = await Note.findOne({ _id: noteId, userId: user._id });
+
+    if (!note) {
+      return res.status(404).json({ error: true, Message: "Note not found" });
     }
-    if (!content) {
-        return res.status(400).json({
-            error: true,
-            Message: "Content is required"
-        })
-    }
 
-    try {
-        const note = new Note({
-            title,
-            content,
-            tags: tags || [],
-            userId: user._id
-        });
+    if (title) note.title = title;
+    if (content) note.content = content;
+    if (tags) note.tags = tags;
+    if (isPinned) note.isPinned = isPinned;
 
-        await note.save();
+    await note.save();
 
-        return res.json({
-            error: false,
-            note,
-            Message: "Note added successfully"
-        })
-    } catch (error) {
-        return res.status(500).json({
-            error: true,
-            Message: "Internal server error"
-        })
-    }
-})
+    return res.json({
+      error: false,
+      note,
+      Message: "Note updated successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: true,
+      Message: "Internal Server Error",
+    });
+  }
+});
 
 app.listen(3001);
 
