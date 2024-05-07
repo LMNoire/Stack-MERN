@@ -24,6 +24,7 @@ app.get("/", (req, res) => {
   res.json({ data: "hello" });
 });
 
+// Create an account
 app.post("/create-account", async (req, res) => {
   const { fullName, email, password } = req.body;
 
@@ -55,6 +56,7 @@ app.post("/create-account", async (req, res) => {
   });
 });
 
+// Login
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -93,6 +95,27 @@ app.post("/login", async (req, res) => {
   }
 });
 
+// Get a user
+app.get("/get-user", authenticateToken, async (req, res) => {
+  const { user } = req.user;
+  const isUser = await User.findOne({ _id: user._id });
+
+  if (!isUser) {
+    return res.sendStatus(401);
+  }
+
+  return res.json({
+    user: {
+      fullName: isUser.fullName,
+      email: isUser.email,
+      _id: isUser._id,
+      createdOn: isUser.createdOn,
+    },
+    Message: "",
+  });
+});
+
+// Add a note
 app.post("/add-note", authenticateToken, async (req, res) => {
   const { title, content, tags } = req.body;
   const { user } = req.user;
@@ -133,6 +156,7 @@ app.post("/add-note", authenticateToken, async (req, res) => {
   }
 });
 
+// Edit a note
 app.put("/edit-note/:noteId", authenticateToken, async (req, res) => {
   const noteId = req.params.noteId;
   const { title, content, tags, isPinned } = req.body;
@@ -171,6 +195,7 @@ app.put("/edit-note/:noteId", authenticateToken, async (req, res) => {
   }
 });
 
+// Get all notes
 app.get("/get-all-notes/", authenticateToken, async (req, res) => {
   const { user } = req.user;
 
@@ -189,6 +214,7 @@ app.get("/get-all-notes/", authenticateToken, async (req, res) => {
   }
 });
 
+// Delete a note
 app.delete("/delete-note/:noteId", authenticateToken, async (req, res) => {
   const noteId = req.params.noteId;
   const { user } = req.user;
@@ -213,6 +239,7 @@ app.delete("/delete-note/:noteId", authenticateToken, async (req, res) => {
   }
 });
 
+// Pin a note
 app.put("/update-note-pinned/:noteId", authenticateToken, async (req, res) => {
   const noteId = req.params.noteId;
   const { isPinned } = req.body;
@@ -240,7 +267,7 @@ app.put("/update-note-pinned/:noteId", authenticateToken, async (req, res) => {
       Message: "Internal Server Error",
     });
   }
-})
+});
 
 app.listen(3001);
 
