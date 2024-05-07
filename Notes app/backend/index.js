@@ -213,6 +213,35 @@ app.delete("/delete-note/:noteId", authenticateToken, async (req, res) => {
   }
 });
 
+app.put("/update-note-pinned/:noteId", authenticateToken, async (req, res) => {
+  const noteId = req.params.noteId;
+  const { isPinned } = req.body;
+  const { user } = req.user;
+
+  try {
+    const note = await Note.findOne({ _id: noteId, userId: user._id });
+
+    if (!note) {
+      return res.status(404).json({ error: true, Message: "Note not found" });
+    }
+
+    note.isPinned = isPinned;
+
+    await note.save();
+
+    return res.json({
+      error: false,
+      note,
+      Message: "Note updated successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: true,
+      Message: "Internal Server Error",
+    });
+  }
+})
+
 app.listen(3001);
 
 module.exports = app;
