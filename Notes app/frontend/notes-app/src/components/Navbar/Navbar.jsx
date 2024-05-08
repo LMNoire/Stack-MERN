@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import ProfileInfo from "../Cards/ProfileInfo";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
+import PropTypes from "prop-types";
 
-const Navbar = () => {
+const Navbar = ({ userInfo }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   const onLogout = () => {
+    localStorage.clear()
     navigate("/login");
   };
 
@@ -29,9 +31,13 @@ const Navbar = () => {
         handleSearch={handleSearch}
         onClearSearch={onClearSearch}
       />
-      <ProfileInfo onLogout={onLogout} />
+      <ProfileInfo userInfo={userInfo} onLogout={onLogout} />
     </div>
   );
+};
+
+Navbar.propTypes = {
+  userInfo: PropTypes.object.isRequired,
 };
 
 export default Navbar;
