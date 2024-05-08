@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { MdOutlinePushPin } from "react-icons/md";
 import { MdCreate, MdDelete } from "react-icons/md";
+import moment from "moment";
 
 const NoteCard = ({
   title,
@@ -18,7 +19,7 @@ const NoteCard = ({
       <div className="flex items-center justify-between">
         <div>
           <h6 className="text-sm font-medium">{title}</h6>
-          <span className="text-xs text-slate-500">{date}</span>
+          <span className="text-xs text-slate-500">{moment(date).format('DD MMM YYYY')}</span>
         </div>
 
         <MdOutlinePushPin
@@ -30,7 +31,12 @@ const NoteCard = ({
       <p className="text-xs text-slate-600 mt-2">{content?.slice(0, 60)}</p>
 
       <div className="flex items-center gap-2">
-        <div className="text-xs text-slate-500">{tags}</div>
+      {tags && tags.length > 0 && (
+  <div className="text-xs text-slate-500">
+    {tags.filter(tag => tag !== null).map((item) => `#${item}`)}
+  </div>
+)}
+        
 
         <div className="flex items-center gap-2">
           <MdCreate className="icon-btn hover:text-blue-600" onClick={onEdit} />

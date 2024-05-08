@@ -203,14 +203,20 @@ app.put("/edit-note/:noteId", authenticateToken, async (req, res) => {
 });
 
 // Get all notes
-app.get("/get-all-notes/", authenticateToken, async (req, res) => {
+app.get("/get-all-notes", authenticateToken, async (req, res) => {
   const { user } = req.user;
 
   try {
     const notes = await Note.find({ userId: user._id }).sort({ isPinned: -1 });
+
+    const sanitizedNotes = notes.map(note => ({
+      ...note.toObject(),
+      tags: note.tags || [] 
+    }));
+
     return res.json({
       error: false,
-      notes,
+      notes: sanitizedNotes,
       Message: "All notes retrieved successfully",
     });
   } catch (error) {
