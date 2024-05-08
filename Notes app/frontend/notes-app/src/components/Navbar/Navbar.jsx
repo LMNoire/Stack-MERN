@@ -37,7 +37,7 @@ const Navbar = ({ userInfo }) => {
 };
 
 Navbar.propTypes = {
-  userInfo: PropTypes.object.isRequired,
+  userInfo: PropTypes.object,
 };
 
 export default Navbar;

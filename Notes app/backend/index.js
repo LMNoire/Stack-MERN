@@ -49,9 +49,14 @@ app.post("/create-account", async (req, res) => {
   });
   await user.save();
 
+  const accessToken = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "30m",
+  });
+
   return res.json({
     error: false,
     user,
+    accessToken,
     message: "Registration successful",
   });
 });
@@ -133,11 +138,13 @@ app.post("/add-note", authenticateToken, async (req, res) => {
     });
   }
 
+  const formattedTags = Array.isArray(tags) ? tags : [tags];
+
   try {
     const note = new Note({
       title,
       content,
-      tags: tags || [],
+      tags: formattedTags,
       userId: user._id,
     });
 

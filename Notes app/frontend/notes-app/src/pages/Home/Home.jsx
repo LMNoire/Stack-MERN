@@ -7,6 +7,8 @@ import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../utils/axiosinstance";
 
+Modal.setAppElement("#root");
+
 const Home = () => {
   const [openAddEditModal, setOpenAddEditModal] = useState({
     isShown: false,
@@ -46,7 +48,7 @@ const Home = () => {
             title="Meeting"
             date="1st May 2024"
             content="Meeting"
-            tags="#Meeting"
+            tags={["#Meeting"]}
             isPinned={true}
             onEdit={() => {}}
             onDelete={() => {}}

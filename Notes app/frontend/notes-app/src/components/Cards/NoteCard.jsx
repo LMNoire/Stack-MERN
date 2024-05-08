@@ -45,14 +45,14 @@ const NoteCard = ({
 };
 
 NoteCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  date: PropTypes.string,
+  content: PropTypes.string,
   tags: PropTypes.arrayOf(PropTypes.string),
-  isPinned: PropTypes.bool.isRequired,
-  onEdit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onPinNote: PropTypes.func.isRequired,
+  isPinned: PropTypes.bool,
+  onEdit: PropTypes.func,
+  onDelete: PropTypes.func,
+  onPinNote: PropTypes.func,
 };
 
 export default NoteCard;
