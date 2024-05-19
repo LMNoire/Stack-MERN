@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import PropTypes from "prop-types";
 
+//Password input component
 const PasswordInput = ({ value, onChange, placeholder }) => {
   const [isShowPassword, setIsShowPassword] = useState(false);
 
@@ -36,6 +37,7 @@ const PasswordInput = ({ value, onChange, placeholder }) => {
   );
 };
 
+//PropTypes
 PasswordInput.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,

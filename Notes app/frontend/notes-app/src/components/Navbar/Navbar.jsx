@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
 import PropTypes from "prop-types";
 
-const Navbar = ({ userInfo, onSearchNote }) => {
+//Navbar
+const Navbar = ({ userInfo, onSearchNote, handleClearSearch }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const navigate = useNavigate();
@@ -22,7 +23,9 @@ const Navbar = ({ userInfo, onSearchNote }) => {
 
   const onClearSearch = () => {
     setSearchQuery("");
+    handleClearSearch();
   };
+  
   return (
     <div className="bg-white flex items-center justify-between px-6 py-2 drop-shadow">
       <h2 className="text-xl font-medium text-black py-2">Notes</h2>
@@ -40,9 +43,11 @@ const Navbar = ({ userInfo, onSearchNote }) => {
   );
 };
 
+//PropTypes
 Navbar.propTypes = {
   userInfo: PropTypes.object,
   onSearchNote: PropTypes.func,
+  handleClearSearch: PropTypes.func,
 };
 
 export default Navbar;

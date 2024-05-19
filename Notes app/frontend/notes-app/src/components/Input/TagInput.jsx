@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { MdAdd, MdClose } from "react-icons/md";
 
+//Add tags to notecard
 const TagInput = ({ tags, setTags }) => {
   const [inputValue, setInputValue] = useState("");
 
@@ -65,6 +66,7 @@ const TagInput = ({ tags, setTags }) => {
   );
 };
 
+//PropTypes
 TagInput.propTypes = {
   tags: PropTypes.array.isRequired,
   setTags: PropTypes.func.isRequired,

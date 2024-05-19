@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.json({ data: "hello" });
+  res.json({ data: "" });
 });
 
 // Create an account
@@ -282,6 +282,7 @@ app.put("/update-note-pinned/:noteId", authenticateToken, async (req, res) => {
   }
 });
 
+//Search a note
 app.get("/search-notes/", authenticateToken, async (req, res) => {
   const { user } = req.user;
   const { query } = req.query;

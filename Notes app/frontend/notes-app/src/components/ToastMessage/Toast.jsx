@@ -3,6 +3,7 @@ import { LuCheck } from "react-icons/lu";
 import PropTypes from "prop-types";
 import { MdDeleteOutline } from "react-icons/md";
 
+//Toast Messages
 const Toast = ({ isShown, message, type, onClose }) => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -45,6 +46,7 @@ const Toast = ({ isShown, message, type, onClose }) => {
   );
 };
 
+//PropTYpes
 Toast.propTypes = {
   isShown: PropTypes.bool.isRequired,
   message: PropTypes.string.isRequired,

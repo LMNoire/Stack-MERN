@@ -4,6 +4,7 @@ import TagInput from "../../components/Input/TagInput";
 import { MdClose } from "react-icons/md";
 import axiosInstance from "../../utils/axiosinstance";
 
+//Add Edit Notes function
 const AddEditNotes = ({ onClose, type, getAllNotes, noteData, showToastMessage }) => {
 
   const [title, setTitle] = useState(noteData?.title || "");
@@ -129,6 +130,7 @@ const AddEditNotes = ({ onClose, type, getAllNotes, noteData, showToastMessage }
   );
 };
 
+//PropTypes
 AddEditNotes.propTypes = {
   onClose: PropTypes.func.isRequired,
   type: PropTypes.oneOf(["add", "edit"]).isRequired,

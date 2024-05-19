@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { validateEmail } from "../../utils/helper";
 import axiosInstance from "../../utils/axiosinstance";
 
+//Signup function
 const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");

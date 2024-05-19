@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { getInitials } from "../../utils/helper";
 
+//Profil info component
 const ProfileInfo = ({ userInfo, onLogout }) => {
   if (!userInfo) {
     return null;
@@ -22,6 +23,7 @@ const ProfileInfo = ({ userInfo, onLogout }) => {
   );
 };
 
+//PropTypes
 ProfileInfo.propTypes = {
   onLogout: PropTypes.func.isRequired,
   userInfo: PropTypes.object,

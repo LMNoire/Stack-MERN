@@ -5,6 +5,7 @@ import Passwordinput from "../../components/Input/Passwordinput";
 import { validateEmail } from "../../utils/helper";
 import axiosInstance from "../../utils/axiosinstance";
 
+//Login function
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

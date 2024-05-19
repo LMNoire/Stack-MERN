@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 
+//SearchBar
 const SearchBar = ({ value, onChange, handleSearch, onClearSearch }) => {
   return (
     <div className="w-80 flex items-center px-4 bg-slate-100 rounded-md">
@@ -29,6 +30,7 @@ const SearchBar = ({ value, onChange, handleSearch, onClearSearch }) => {
   );
 };
 
+//PropTypes
 SearchBar.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,

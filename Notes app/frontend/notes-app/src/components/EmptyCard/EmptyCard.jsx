@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 
+//Empty card component
 const EmptyCard = ({ imgSrc, message }) => {
   return (
     <div className="flex flex-col items-center justify-center mt-20">
@@ -13,6 +14,7 @@ const EmptyCard = ({ imgSrc, message }) => {
   )
 }
 
+//PropTypes
 EmptyCard.propTypes = {
     imgSrc: PropTypes.string.isRequired, 
     message: PropTypes.string.isRequired, 
