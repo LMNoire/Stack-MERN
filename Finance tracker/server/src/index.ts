@@ -12,4 +12,8 @@ const mongoURI: string =
 mongoose
   .connect(mongoURI)
   .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.error("Failed to connect to mongoDB"));
+  .catch((err) => console.error("Failed to connect to mongoDB :", err));
+
+app.listen(port, () => {
+  console.log(`Server Running on Port ${port}`);
+});
