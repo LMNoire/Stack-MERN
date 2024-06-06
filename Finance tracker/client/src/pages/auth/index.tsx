@@ -8,16 +8,19 @@ import {
 } from "@clerk/clerk-react";
 
 export const Auth = () => {
-  return <div className="sign-in-container">
-    {/* If signed out, show sign up and sign in buttons */}
-    <SignedOut>
-        <SignUpButton />
-        <SignInButton />
-    </SignedOut>
+  return (
+    <div className="sign-in-container">
+      {/* If signed out, show sign up and sign in buttons */}
+      <SignedOut>
+        <SignUpButton mode="modal" />
+        {/* Use mode modal for the sign components */}
+        <SignInButton mode="modal" />
+      </SignedOut>
 
-    {/* If signed in, show user button */}
-    <SignedIn>
+      {/* If signed in, show user button */}
+      <SignedIn>
         <UserButton />
-    </SignedIn>
-  </div>;
+      </SignedIn>
+    </div>
+  );
 };
