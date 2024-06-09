@@ -46,7 +46,7 @@ router.put("/:id", async (req: Request, res: Response) => {
   }
 });
 
-//Update a record
+//Delete a record
 router.delete("/:id", async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
