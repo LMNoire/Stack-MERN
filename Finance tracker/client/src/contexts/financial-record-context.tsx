@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
 //Use the financial record interface for context
 interface FinancialRecord {
@@ -22,3 +22,17 @@ interface FinancialRecordsContextType {
 export const FinancialRecordsContext = createContext<
   FinancialRecordsContextType | undefined
 >(undefined);
+
+export const FinancialRecordsProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const [records, setRecords] = useState<FinancialRecord[]>([])
+
+  return (
+    <FinancialRecordsContext.Provider value={{records}}>
+      {children}
+    </FinancialRecordsContext.Provider>
+  );
+};
