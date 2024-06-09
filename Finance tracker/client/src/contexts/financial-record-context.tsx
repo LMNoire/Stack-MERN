@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 //Use the financial record interface for context
 interface FinancialRecord {
@@ -15,8 +15,8 @@ interface FinancialRecord {
 interface FinancialRecordsContextType {
   records: FinancialRecord[];
   addRecord: (record: FinancialRecord) => void;
-  updateRecord: (id: string, newRecord: FinancialRecord) => void;
-  deleteRecord: (id: string) => void;
+  // updateRecord: (id: string, newRecord: FinancialRecord) => void;
+  // deleteRecord: (id: string) => void;
 }
 
 export const FinancialRecordsContext = createContext<
@@ -28,11 +28,22 @@ export const FinancialRecordsProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [records, setRecords] = useState<FinancialRecord[]>([])
-
+  const [records, setRecords] = useState<FinancialRecord[]>([]);
+  const addRecord = (record: FinancialRecord) => {};
   return (
-    <FinancialRecordsContext.Provider value={{records}}>
+    <FinancialRecordsContext.Provider value={{ records, addRecord }}>
       {children}
     </FinancialRecordsContext.Provider>
   );
+};
+
+export const useFinancialRecords = () => {
+  const context = useContext<FinancialRecordsContextType | undefined>(
+    FinancialRecordsContext
+  );
+  if (!context) {
+    throw new Error(
+      "useFinancialRecords must be used within a FinancialRecordsProvider"
+    );
+  }
 };
