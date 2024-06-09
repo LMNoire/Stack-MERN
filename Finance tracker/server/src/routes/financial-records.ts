@@ -17,4 +17,16 @@ router.get("/getAllByUserID/:userId", async (req: Request, res: Response) => {
   }
 });
 
+//Add a new record
+router.post("/", async (req: Request, res: Response) => {
+  try {
+    const newRecordBody = req.body;
+    const newRecord = new FinancialRecordModel(newRecordBody);
+    const savedRecord = await newRecord.save();
+    res.status(200).send(savedRecord);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
 export default router;
