@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+//Financial record interface
 interface FinancialRecord {
   userId: string;
   date: Date;
@@ -9,6 +10,7 @@ interface FinancialRecord {
   paymentMethod: string;
 }
 
+//Financial record schema
 const financialRecordSchema = new mongoose.Schema<FinancialRecord>({
   userId: { type: String, required: true },
   date: { type: Date, required: true },
@@ -18,6 +20,7 @@ const financialRecordSchema = new mongoose.Schema<FinancialRecord>({
   paymentMethod: { type: String, required: true },
 });
 
+//Link with mongoDb database
 const FinancialRecordModel = mongoose.model<FinancialRecord>(
   "financialrecords",
   financialRecordSchema
