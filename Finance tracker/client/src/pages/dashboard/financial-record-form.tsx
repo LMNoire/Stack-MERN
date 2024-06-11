@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useUser } from "@clerk/clerk-react";
+import { useFinancialRecords } from "../../contexts/financial-record-context";
 
 //Form for adding a record
 export const FinancialRecordForm = () => {
@@ -8,6 +9,7 @@ export const FinancialRecordForm = () => {
   const [amount, setAmount] = useState<string>("");
   const [category, setCategory] = useState<string>("");
   const [paymentMethod, setPaymentMethod] = useState<string>("");
+  const { addRecord } = useFinancialRecords();
 
   //Get user from clerk component
   const { user } = useUser();
@@ -18,7 +20,7 @@ export const FinancialRecordForm = () => {
 
     //Set the new record
     const newRecord = {
-      userId: user?.id,
+      userId: user?.id ?? "",
       date: new Date(),
       description: description,
       amount: parseFloat(amount),
@@ -26,7 +28,7 @@ export const FinancialRecordForm = () => {
       paymentMethod: paymentMethod,
     };
 
-    //TODO: addRecord(newRecord)
+    addRecord(newRecord)
     //Set fields to empty after sending new record
     setDescription("");
     setAmount(""), setCategory(""), setPaymentMethod("");

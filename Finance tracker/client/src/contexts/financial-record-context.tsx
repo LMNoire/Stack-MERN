@@ -29,7 +29,9 @@ export const FinancialRecordsProvider = ({
   children: React.ReactNode;
 }) => {
   const [records, setRecords] = useState<FinancialRecord[]>([]);
-  const addRecord = (record: FinancialRecord) => {};
+  const addRecord = async (record: FinancialRecord) => {
+    await fetch("http://localhost:3001/financial-rercords")
+  };
   return (
     <FinancialRecordsContext.Provider value={{ records, addRecord }}>
       {children}
@@ -46,4 +48,6 @@ export const useFinancialRecords = () => {
       "useFinancialRecords must be used within a FinancialRecordsProvider"
     );
   }
+
+  return context;
 };

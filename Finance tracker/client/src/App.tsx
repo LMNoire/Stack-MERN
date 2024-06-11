@@ -9,8 +9,15 @@ function App() {
     <Router>
       <div className="app-container">
         <Routes>
-          <Route path="/" element={<FinancialRecordsProvider><Dashboard /></FinancialRecordsProvider>}/>
-          <Route path="/auth" element={<Auth />}/>
+          <Route
+            path="/"
+            element={
+              <FinancialRecordsProvider>
+                <Dashboard />
+              </FinancialRecordsProvider>
+            }
+          />
+          <Route path="/auth" element={<Auth />} />
         </Routes>
       </div>
     </Router>
