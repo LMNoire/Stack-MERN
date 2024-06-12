@@ -1,12 +1,14 @@
 import express, { Express } from "express";
 import mongoose from "mongoose";
-import financialRecordRouter from './routes/financial-records';
+import financialRecordRouter from "./routes/financial-records";
+import cors from "cors";
 
 //Use express and define port
 const app: Express = express();
 const port = process.env.PORT || 3001;
 
 app.use(express.json());
+app.use(cors());
 
 //Mongo connexion
 const mongoURI: string =
@@ -21,7 +23,7 @@ mongoose
 //Using path for the app
 app.use("/financial-records", financialRecordRouter);
 
-//Listen to port  
+//Listen to port
 app.listen(port, () => {
   console.log(`Server Running on Port ${port}`);
 });
