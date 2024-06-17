@@ -1,9 +1,24 @@
-import { useFinancialRecords } from "../../contexts/financial-record-context";
+import { FinancialRecord, useFinancialRecords } from "../../contexts/financial-record-context";
 import { useTable, Column, CellProps, Row } from "react-table";
+import { useMemo } from "react";
+
+interface EditableCellProps extends CellProps<FinancialRecord> {
+    
+}
+
+const EditableCell: React.FC<EditableCellProps>
 
 //List to see your records
 export const FinancialRecordlist = () => {
   const { records } = useFinancialRecords();
+
+    const columns : Array<Column<FinancialRecord>> = useMemo(() => [
+        {
+            Header: "Description",
+            accessor: "description",
+            cell: () => ()
+        }
+    ])
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
