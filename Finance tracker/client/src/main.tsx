@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
+import "././pages/dashboard/financial-record.css"
 import { ClerkProvider } from "@clerk/clerk-react";
 
 //Import Clerk key for auth from local env
