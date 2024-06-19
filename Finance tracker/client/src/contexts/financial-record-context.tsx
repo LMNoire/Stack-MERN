@@ -16,7 +16,7 @@ export interface FinancialRecord {
 interface FinancialRecordsContextType {
   records: FinancialRecord[];
   addRecord: (record: FinancialRecord) => void;
-  // updateRecord: (id: string, newRecord: FinancialRecord) => void;
+  updateRecord: (id: string, newRecord: FinancialRecord) => void;
   // deleteRecord: (id: string) => void;
 }
 
@@ -40,13 +40,13 @@ export const FinancialRecordsProvider = ({
 
     if (response.ok) {
       const records = await response.json();
-      console.log(records)
+      console.log(records);
       setRecords(records);
     }
   };
 
   useEffect(() => {
-    fetchRecords()
+    fetchRecords();
   }, [user]);
 
   const addRecord = async (record: FinancialRecord) => {
@@ -65,8 +65,38 @@ export const FinancialRecordsProvider = ({
       }
     } catch (err) {}
   };
+
+  const updateRecord = async (id: string, newRecord: FinancialRecord) => {
+    if (!user) return;
+    const response = await fetch(
+      `http://localhost:3001/financial-records/${user.id}`,
+      {
+        method: "PUT",
+        body: JSON.stringify(newRecord),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    try {
+      if (response.ok) {
+        const newRecord = await response.json();
+        setRecords((prev) =>
+          prev.map((record) => {
+            if (record.id === id) {
+              return newRecord;
+            } else {
+              return record;
+            }
+          })
+        );
+      }
+    } catch (err) {}
+  };
+
   return (
-    <FinancialRecordsContext.Provider value={{ records, addRecord }}>
+    <FinancialRecordsContext.Provider value={{ records, addRecord, updateRecord }}>
       {children}
     </FinancialRecordsContext.Provider>
   );
