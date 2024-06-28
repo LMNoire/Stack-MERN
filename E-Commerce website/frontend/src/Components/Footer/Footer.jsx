@@ -20,13 +20,13 @@ const Footer = () => {
         <li>Contact</li>
       </ul>
       <div className="footer-social-icon">
-        <div className="footer-icon-container">
+        <div className="footer-icons-container">
           <img src={instagram_icon} alt="Instagram logo" />
         </div>
-        <div className="footer-icon-container">
+        <div className="footer-icons-container">
           <img src={pintester_icon} alt="Pinterest logo" />
         </div>
-        <div className="footer-icon-container">
+        <div className="footer-icons-container">
           <img src={whatsapp_icon} alt="Whatsapp logo" />
         </div>
       </div>
