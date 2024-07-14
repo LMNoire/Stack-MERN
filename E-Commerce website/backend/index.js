@@ -113,7 +113,14 @@ app.post("/addproduct", async (req, res) => {
 });
 
 //Endpoint to delete a product
-app.
+app.post("/removeproduct", async (req, res) => {
+  await Product.findOneAndDelete({ id: req.body.id });
+  console.log("Removed");
+  response.json({
+    success: true,
+    name: req.body.name,
+  });
+});
 
 //Running server
 app.listen(port, () => {
