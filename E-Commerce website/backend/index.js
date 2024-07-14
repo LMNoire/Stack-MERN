@@ -122,6 +122,13 @@ app.post("/removeproduct", async (req, res) => {
   });
 });
 
+//Endpoint for getting all products
+app.get("/allproducts", async (req, res) => {
+  let products = await Product.find({});
+  console.log("All Products Fetched");
+  res.send(products);
+});
+
 //Running server
 app.listen(port, () => {
   console.log("Server running on port " + port);
