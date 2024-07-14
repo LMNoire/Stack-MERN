@@ -86,8 +86,17 @@ const Product = mongoose.model("Product", {
 
 //Endpoint to add a product
 app.post("/addproduct", async (req, res) => {
+  let products = await Product.find({});
+  let id;
+  if (product.length > 0) {
+    let last_product_array = products.slice(-1);
+    let last_product = last_product_array[0];
+    id = last_product.id + 1;
+  } else {
+    id = 1;
+  }
   const product = new Product({
-    id: req.body.id,
+    id: id,
     name: req.body.name,
     image: req.body.image,
     category: req.body.category,
@@ -102,6 +111,9 @@ app.post("/addproduct", async (req, res) => {
     name: req.body.name,
   });
 });
+
+//Endpoint to delete a product
+app.
 
 //Running server
 app.listen(port, () => {
