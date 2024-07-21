@@ -117,7 +117,7 @@ const AddProduct = () => {
       </div>
       <button
         onClick={() => {
-          AddProduct();
+          Add_Product();
         }}
         className="addproduct-btn"
       >
