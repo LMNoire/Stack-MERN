@@ -129,6 +129,27 @@ app.get("/allproducts", async (req, res) => {
   res.send(products);
 });
 
+//Schema for User model
+const Users = mongoose.model("Users", {
+  name: {
+    type: String,
+  },
+  email: {
+    type: String,
+    unique: true,
+  },
+  password: {
+    type: String,
+  },
+  cartData: {
+    type: Object,
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
 //Running server
 app.listen(port, () => {
   console.log("Server running on port " + port);
