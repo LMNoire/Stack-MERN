@@ -170,7 +170,13 @@ app.post("/signup", async (req, res) => {
     cartData: cart,
   });
   await user.save();
-  const data
+  const data = {
+    user: {
+      id: user.id,
+    },
+  };
+  const token = jwt.sign(data, "secret_ecom");
+  res.json({ success: true, token });
 });
 
 //Running server
