@@ -3,6 +3,20 @@ import "./CSS/LoginSignup.css";
 
 const LoginSignup = () => {
   const [state, setState] = useState("Login");
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+    email: "",
+  });
+  const changeHandler = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const login = async () => {
+    console.log("Login Function Executed");
+  };
+  const signup = async () => {
+    console.log("Signup Function Executed");
+  };
 
   return (
     <div className="loginsignup">
@@ -10,21 +24,59 @@ const LoginSignup = () => {
         <h1>{state}</h1>
         <div className="loginsignup-fields">
           {state === "Sign Up" ? (
-            <input type="text" placeholder="Your Name" />
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={changeHandler}
+              placeholder="Your Name"
+            />
           ) : (
             <></>
           )}
-          <input type="email" placeholder="Email Address" />
-          <input type="password" placeholder="Password" />
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={changeHandler}
+            placeholder="Email Address"
+          />
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={changeHandler}
+            placeholder="Password"
+          />
         </div>
-        <button>Continue</button>
+        <button
+          onClick={() => {
+            state === "Login" ? login() : signup();
+          }}
+        >
+          Continue
+        </button>
         {state === "Sign Up" ? (
           <p className="loginsignup-login">
-            Already have an account ? <span>Login here</span>
+            Already have an account ?{" "}
+            <span
+              onClick={() => {
+                setState("Login");
+              }}
+            >
+              Login here
+            </span>
           </p>
         ) : (
           <p className="loginsignup-login">
-            Create an account <span>Click here</span>
+            Create an account{" "}
+            <span
+              onClick={() => {
+                setState("Sign Up");
+              }}
+            >
+              Click here
+            </span>
           </p>
         )}
         <div className="loginsignup-agree">
