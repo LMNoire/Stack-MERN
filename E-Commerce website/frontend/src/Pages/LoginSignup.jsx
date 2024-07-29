@@ -12,10 +12,25 @@ const LoginSignup = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const login = async () => {
-    console.log("Login Function Executed");
+    console.log("Login Function Executed", formData);
   };
   const signup = async () => {
-    console.log("Signup Function Executed");
+    console.log("Signup Function Executed", formData);
+    let responseData;
+    await fetch("http://localhost:4000/signup", {
+      method: "POST",
+      headers: {
+        Accept: "application/form-data",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => (responseData = data));
+    if (responseData.success) {
+      localStorage.setItem("auth-token", responseData.token);
+      window.location.replace("/");
+    }
   };
 
   return (
