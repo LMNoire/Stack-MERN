@@ -1,4 +1,3 @@
-import { response } from "express";
 import React, { createContext, useEffect, useState } from "react";
 
 export const ShopContext = createContext(null);
