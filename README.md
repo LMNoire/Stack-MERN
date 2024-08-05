@@ -4,3 +4,4 @@ Série de projets MERN afin de monter en compétence sur MongoDB, Express, React
 - E-Commerce website : Site d'e-commerce avec un front-office permettant la création de compte et avec un panier d'achat persistant ainsi qu'un back-office admin permettant les CRUD sur les différents produits (MERN + Postman) 
 - Finance tracker : Application de gestion de finance personnel (MERN + Vite, Typescript, Clerk, Postman)
 - Notes app : Application avec register et login contenant un front-office permettant les CRUD sur des notes mais également de les épingler ou d'effectuer une recherche. (MERN + Vite, Tailwind, Bootstrap, Postman)
+- Podcaster audio platform : Application permettant la création de compte afin de publier ou écouter des podcasts audio (MERN + Postman)
