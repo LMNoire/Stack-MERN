@@ -83,4 +83,12 @@ router.post("/login", async (req, res) => {
   }
 });
 
+//Endpoint for logout
+router.post("/logout", async () => {
+  res.clearCookie("podcasterUserToken", {
+    httpOnly: true,
+  });
+  res.json({ message: "Logged out" });
+});
+
 module.exports = router;
