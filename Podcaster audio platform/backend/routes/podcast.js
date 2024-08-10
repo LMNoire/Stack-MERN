@@ -42,4 +42,16 @@ router.post("/add-podcast", authMiddleware, upload, async (req, res) => {
   }
 });
 
+//Endpoint to get all podcasts
+router.get("/get-podcast", async (req, res) => {
+  try {
+    const podcasts = await Podcast.find()
+      .populate("category")
+      .sort({ createdAt: -1 });
+    return res.status(200).json({ data: podcasts });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 module.exports = router;
