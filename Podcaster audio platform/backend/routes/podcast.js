@@ -43,12 +43,30 @@ router.post("/add-podcast", authMiddleware, upload, async (req, res) => {
 });
 
 //Endpoint to get all podcasts
-router.get("/get-podcast", async (req, res) => {
+router.get("/get-podcasts", async (req, res) => {
   try {
     const podcasts = await Podcast.find()
       .populate("category")
       .sort({ createdAt: -1 });
     return res.status(200).json({ data: podcasts });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+//Endpoint to get user podcasts
+router.get("/get-user-podcasts", authMiddleware, async (req, res) => {
+  try {
+    const { user } = req;
+    const userid = user._id;
+    const data = await User.findById(userid)
+      .populate({ path: "podcasts", populate: { path: "category" } })
+      .select("-password");
+    if (data && data.podcasts) {
+      data.podcasts.sort((a, b) => new Date(b.createdAt)) -
+        new Date(a.createdAt);
+    }
+    return res.status(200).json({ data: data.podcasts });
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });
   }
