@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { IoReorderThreeOutline } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
+import { useState } from "react";
 
 const Navbar = () => {
+  const [MobileNav, setMobileNav] = useState(false);
   const navLinks = [
     {
       name: "Home",
@@ -53,15 +55,19 @@ const Navbar = () => {
             Signup
           </Link>
         </div>
-        <div className="w-4/6 flex items-center justify-end lg:hidden">
-          <button className="text-4xl">
+        <div className="w-4/6 flex items-center justify-end lg:hidden z-[1000]">
+          <button className="text-4xl" onClick={() => setMobileNav(!MobileNav)}>
             <IoReorderThreeOutline />
           </button>
         </div>
       </div>
-      <div className="fixed top-0 left-0 w-full h-screen bg-blue-100">
+      <div
+        className={`fixed top-0 left-0 w-full h-screen bg-blue-100 ${
+          MobileNav ? "translate-y-[0%]" : "translate-y-[-100%]"
+        }  `}
+      >
         <div className="p-8 flex items-center justify-end text-4lx">
-          <button>
+          <button onClick={() => setMobileNav(!MobileNav)}>
             <RxCross2 />
           </button>
         </div>
