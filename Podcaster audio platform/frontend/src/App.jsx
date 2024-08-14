@@ -7,8 +7,10 @@ function App() {
   return (
     <div className="">
       <Router>
-        <Routes path="/" element={<MainLayout />}>
-          <Route index element={<Home />} />
+        <Routes>
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<Home />} />
+          </Route>
         </Routes>
       </Router>
     </div>
