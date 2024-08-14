@@ -23,7 +23,7 @@ const Navbar = () => {
             Podcaster
           </Link>
         </div>
-        <div className="w-2/6">
+        <div className="w-2/6 flex items-center justify-center">
           {navLinks.map((items, i) => (
             <Link
               key={i}
@@ -34,7 +34,10 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
-        <div className="w-2/6"></div>
+        <div className="w-2/6 flex items-center justify-end">
+          <Link className="px-6 py-3 border border-black rounded-full">Login</Link>
+          <Link className="ms-4 px-6 py-3 bg-black text-white rounded-full">Signup</Link>
+        </div>
       </div>
     </nav>
   );
