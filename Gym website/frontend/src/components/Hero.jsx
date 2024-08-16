@@ -1,5 +1,3 @@
-
-
 const Hero = () => {
   return (
     <section className="hero">
@@ -19,7 +17,7 @@ const Hero = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;
