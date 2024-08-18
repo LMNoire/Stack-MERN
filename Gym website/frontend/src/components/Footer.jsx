@@ -1,10 +1,8 @@
-
-
 const Footer = () => {
   return (
-    <div>
-      
-    </div>
+    <footer>
+      Established since 2024
+    </footer>
   )
 }
 
