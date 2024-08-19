@@ -18,8 +18,17 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-router.get("/", (req, res, next) => {
-  res.json({ success: true });
+//Endpoint for mail form
+router.post("/send/mail", async (req, res, next) => {
+  const { name, email, message } = req.body;
+  if (!name || !email || !message) {
+    return next(
+      res.status(400).json({
+        success: false,
+        message: "Please provide all details",
+      })
+    );
+  }
 });
 
 app.use(router);
