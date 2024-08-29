@@ -17,8 +17,14 @@ const Login = () => {
           type="email"
           placeholder="Email address"
           className="form-input"
+          required
         />
-        <input type="password" placeholder="password" className="form-input" />
+        <input
+          type="password"
+          placeholder="password"
+          className="form-input"
+          required
+        />
         <button type="submit">Sign Up</button>
         <div className="login-term">
           <input type="checkbox" />
