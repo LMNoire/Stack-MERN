@@ -6,7 +6,7 @@ const LeftSidebar = () => {
     <div className="ls">
       <div className="ls-top">
         <div className="ls-nav">
-          <img src={assets.logo} alt="" />
+          <img className="logo" src={assets.logo} alt="" />
           <div className="menu">
             <img src={assets.menu_icon} alt="" />
           </div>
