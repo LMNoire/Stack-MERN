@@ -1,9 +1,13 @@
 import "./Login.css";
 import assets from "../../assets/assets";
 import { useState } from "react";
+import { signup } from "../../config/firebase";
 
 const Login = () => {
   const [currState, setCurrState] = useState("Sign up");
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <div className="login">
@@ -13,6 +17,8 @@ const Login = () => {
         {currState === "Sign up" ? (
           <input
             type="text"
+            onChange={(e) => setUserName(e.target.value)}
+            value={userName}
             placeholder="username"
             className="form-input"
             required
@@ -20,12 +26,16 @@ const Login = () => {
         ) : null}
         <input
           type="email"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
           placeholder="Email address"
           className="form-input"
           required
         />
         <input
           type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
           placeholder="password"
           className="form-input"
           required
