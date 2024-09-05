@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import Login from "./pages/login/login";
+import Login from "./pages/Login/Login";
 import Chat from "./pages/chat/chat";
 import ProfileUpdate from "./pages/ProfileUpdate/ProfileUpdate";
 import { ToastContainer } from 'react-toastify';
