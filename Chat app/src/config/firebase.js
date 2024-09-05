@@ -48,7 +48,7 @@ const signup = async (username, email, password) => {
     });
   } catch (error) {
     console.error(error);
-    toast.error(error.code);
+    toast.error(error.code.split("/")[1].split("-").join(" "));
   }
 };
 
@@ -57,7 +57,7 @@ const login = async (email, password) => {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (error) {
     console.error(error);
-    toast.error(error.code);
+    toast.error(error.code.split("/")[1].split("-").join(" "));
   }
 };
 
