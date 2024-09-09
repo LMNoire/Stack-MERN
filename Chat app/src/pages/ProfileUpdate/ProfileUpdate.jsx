@@ -4,6 +4,8 @@ import { useState } from "react";
 
 const ProfileUpdate = () => {
   const [image, setImage] = useState(false);
+  const [name, setName] = useState("");
+  const [bio, setBio] = useState("");
 
   return (
     <div className="profile">
@@ -24,8 +26,19 @@ const ProfileUpdate = () => {
             />
             upload profile image
           </label>
-          <input type="text" placeholder="Your  name" required />
-          <textarea placeholder="Write profile bio" required></textarea>
+          <input
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+            type="text"
+            placeholder="Your name"
+            required
+          />
+          <textarea
+            onChange={(e) => setBio(e.target.value)}
+            value={bio}
+            placeholder="Write profile bio"
+            required
+          ></textarea>
           <button type="submit">Save</button>
         </form>
         <img
