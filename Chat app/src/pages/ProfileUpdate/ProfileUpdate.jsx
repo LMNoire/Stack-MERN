@@ -1,12 +1,13 @@
 import "./ProfileUpdate.css";
 import assets from "../../assets/assets";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../../config/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import upload from "../../lib/upload";
+import { AppContext } from "../../context/AppContext";
 
 const ProfileUpdate = () => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const ProfileUpdate = () => {
   const [bio, setBio] = useState("");
   const [uid, setUid] = useState("");
   const [prevImage, setPrevImage] = useState("");
+  const { setUserData } = useContext(AppContext);
 
   const ProfileUpdate = async (event) => {
     event.preventDefault();
@@ -37,8 +39,12 @@ const ProfileUpdate = () => {
           name: name,
         });
       }
+      const snap = await getDoc(docRef);
+      setUserData(snap.data());
+      navigate("/chat");
     } catch (error) {
-      console.error("Failed to load user data", error);
+      console.error(error);
+      toast.error(error.message);
     }
   };
 
