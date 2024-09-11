@@ -1,7 +1,7 @@
 import "./LeftSidebar.css";
 import assets from "../../assets/assets";
 import { useNavigate } from "react-router-dom";
-import { collection, getDoc, query, where } from "firebase/firestore";
+import { collection, doc, getDoc, query, serverTimestamp, setDoc, where } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { toast } from "react-toastify";
 import { useContext, useState } from "react";
@@ -35,6 +35,21 @@ const LeftSidebar = () => {
     }
   };
 
+  const addChat = async () => {
+    const messagesRef = collection(db, "messages");
+    const chatsRef = collection(db, "chats");
+    try {
+      const newMessageRef = doc(messagesRef);
+      await setDoc(newMessageRef, {
+        createdAt: serverTimestamp(),
+        messages: []
+      })
+    } catch (error) {
+      console.error(error);
+      toast.error(error.message);
+    }
+  }
+
   return (
     <div className="ls">
       <div className="ls-top">
@@ -60,7 +75,7 @@ const LeftSidebar = () => {
       </div>
       <div className="ls-list">
         {showSearch && user ? (
-          <div className="friends add-user">
+          <div onClick={addChat} className="friends add-user">
             <img src={user.avatar} alt="" />
             <p>{user.name}</p>
           </div>
