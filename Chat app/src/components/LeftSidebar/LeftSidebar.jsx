@@ -4,9 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { collection, getDoc, query, where } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { toast } from "react-toastify";
+import { useContext } from "react";
+import { AppContext } from "../../context/AppContext";
 
 const LeftSidebar = () => {
   const navigate = useNavigate();
+  const { userData } = useContext(AppContext);
 
   const inputHandler = async (e) => {
     try {
@@ -14,7 +17,7 @@ const LeftSidebar = () => {
       const userRef = collection(db, "users");
       const q = query(userRef, where("username", "==", input.toLowerCase()));
       const querySnap = await getDoc(q);
-      if (!querySnap.empty) {
+      if (!querySnap.empty && querySnap.docs[0].data.id !== userData.id) {
         console.log(querySnap.docs[0].data());
       }
     } catch (error) {
