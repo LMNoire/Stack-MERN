@@ -65,7 +65,7 @@ const LeftSidebar = () => {
       });
 
       await updateDoc(doc(chatsRef, user.id), {
-        chatsData: arrayUnion({
+        chatsData: arrayUnion({ //TODO: chatData
           messageId: newMessageRef.id,
           lastMessage: "",
           rId: userData.id,
@@ -75,7 +75,7 @@ const LeftSidebar = () => {
       });
 
       await updateDoc(doc(chatsRef, userData.id), {
-        chatsData: arrayUnion({
+        chatsData: arrayUnion({ //TODO: chatData
           messageId: newMessageRef.id,
           lastMessage: "",
           rId: user.id,
@@ -88,6 +88,10 @@ const LeftSidebar = () => {
       toast.error(error.message);
     }
   };
+
+  const setChat = async (item) = {
+    
+  }
 
   return (
     <div className="ls">
@@ -119,8 +123,8 @@ const LeftSidebar = () => {
             <p>{user.name}</p>
           </div>
         ) : (
-          chatsData.map((item, index) => (
-            <div key={index} className="friends">
+          chatsData.map((item, index) => ( //TODO: chatData
+            <div onClick={() => setChat(item)} key={index} className="friends">
               <img src={item.userData.avatar} alt="" />
               <div>
                 <p>{item.userData.name}</p>
