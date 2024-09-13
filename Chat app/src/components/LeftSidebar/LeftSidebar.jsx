@@ -19,7 +19,7 @@ import { AppContext } from "../../context/AppContext";
 
 const LeftSidebar = () => {
   const navigate = useNavigate();
-  const { userData } = useContext(AppContext);
+  const { userData, chatsData } = useContext(AppContext);
   const [user, setUser] = useState(null);
   const [showSearch, setShowSearch] = useState(false);
 
@@ -32,7 +32,15 @@ const LeftSidebar = () => {
         const q = query(userRef, where("username", "==", input.toLowerCase()));
         const querySnap = await getDoc(q);
         if (!querySnap.empty && querySnap.docs[0].data.id !== userData.id) {
-          setUser(querySnap.docs[0].data);
+          let userExist = false;
+          chatsData.map((user) => {
+            if (user.rId === querySnap.docs[0].data().id) {
+              userExist = true;
+            }
+          });
+          if (!userExist) {
+            setUser(querySnap.docs[0].data);
+          }
         } else {
           setUser(null);
         }
