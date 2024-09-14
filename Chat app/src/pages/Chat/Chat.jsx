@@ -10,10 +10,11 @@ const Chat = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-if (chatsData && userData) { //TODO: chatData
-  setLoading(false)
-}
-  }, [chatsData, userData]) //TODO: chatData
+    if (chatsData && userData) {
+      //TODO: chatData
+      setLoading(false);
+    }
+  }, [chatsData, userData]); //TODO: chatData
 
   return (
     <div className="chat">
