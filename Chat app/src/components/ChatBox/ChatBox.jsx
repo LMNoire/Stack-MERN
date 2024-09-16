@@ -1,7 +1,10 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import assets from "../../assets/assets";
 import "./ChatBox.css";
+import { toast } from "react-toastify";
 import { AppContext } from "../../context/AppContext";
+import { arrayUnion, doc, onSnapshot, updateDoc } from "firebase/firestore";
+import { db } from "../../config/firebase";
 
 const ChatBox = () => {
   const { userData, messagesId, chatUser, messages, setMessages } =
@@ -9,12 +12,40 @@ const ChatBox = () => {
 
   const [input, setInput] = useState("");
 
+  const sendMessage = async () => {
+    try {
+      if (input && messagesId) {
+        await updateDoc(doc(db, 'messages', messagesId), {
+          messages: arrayUnion({
+            sId: userData.id,
+            text: input,
+            createdAt: new Date()
+          })
+        })
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error.message); 
+    }
+  }
+
+  useEffect(() => {
+    if (messagesId) {
+      const unSub = onSnapshot(doc(db, 'messages', messagesId), (res) => {
+        setMessages(res.data().messages.reverse())
+      })
+      return () => {
+        unSub();
+      }
+    }
+  }, [messagesId])
+
   return chatUser ? (
     <div className="chat-box">
       <div className="chat-user">
-        <img src={assets.profile_img} alt="" />
+        <img src={chatUser.userData.avatar} alt="" />
         <p>
-          Richard Sanford <img className="dot" src={assets.green_dot} alt="" />{" "}
+          {chatUser.userData.name} <img className="dot" src={assets.green_dot} alt="" />{" "}
         </p>
         <img src={assets.help_icon} className="help" alt="" />
       </div>
@@ -46,7 +77,7 @@ const ChatBox = () => {
       </div>
 
       <div className="chat-input">
-        <input type="text" placeholder="Send a message" />
+        <input onChange={(e) => setInput(e.target.value)} value={input} type="text" placeholder="Send a message" />
         <input type="file" id="image" accept="image/png, image/jpeg" hidden />
         <label htmlFor="image">
           <img src={assets.gallery_icon} alt="" />
