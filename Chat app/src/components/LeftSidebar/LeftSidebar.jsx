@@ -19,7 +19,7 @@ import { AppContext } from "../../context/AppContext";
 
 const LeftSidebar = () => {
   const navigate = useNavigate();
-  const { userData, chatsData } = useContext(AppContext);
+  const { userData, chatsData, chatUser, setChatUser, messagesId, setMessagesId } = useContext(AppContext);
   const [user, setUser] = useState(null);
   const [showSearch, setShowSearch] = useState(false);
 
@@ -89,8 +89,9 @@ const LeftSidebar = () => {
     }
   };
 
-  const setChat = async (item) = {
-    
+  const setChat = async (item) => {
+    setMessagesId(item.messageId);
+    setChatUser(item);
   }
 
   return (
