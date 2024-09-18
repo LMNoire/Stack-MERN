@@ -52,6 +52,7 @@ const ChatBox = () => {
       console.error(error);
       toast.error(error.message);
     }
+    setInput("");
   };
 
   useEffect(() => {
@@ -113,7 +114,7 @@ const ChatBox = () => {
         <label htmlFor="image">
           <img src={assets.gallery_icon} alt="" />
         </label>
-        <img src={assets.send_button} alt="" />
+        <img onClick={sendMessage} src={assets.send_button} alt="" />
       </div>
     </div>
   ) : (
