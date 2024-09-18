@@ -19,7 +19,14 @@ import { AppContext } from "../../context/AppContext";
 
 const LeftSidebar = () => {
   const navigate = useNavigate();
-  const { userData, chatsData, chatUser, setChatUser, messagesId, setMessagesId } = useContext(AppContext);
+  const {
+    userData,
+    chatsData,
+    chatUser,
+    setChatUser,
+    messagesId,
+    setMessagesId,
+  } = useContext(AppContext);
   const [user, setUser] = useState(null);
   const [showSearch, setShowSearch] = useState(false);
 
@@ -65,7 +72,8 @@ const LeftSidebar = () => {
       });
 
       await updateDoc(doc(chatsRef, user.id), {
-        chatsData: arrayUnion({ //TODO: chatData
+        chatsData: arrayUnion({
+          //TODO: chatData
           messageId: newMessageRef.id,
           lastMessage: "",
           rId: userData.id,
@@ -75,7 +83,8 @@ const LeftSidebar = () => {
       });
 
       await updateDoc(doc(chatsRef, userData.id), {
-        chatsData: arrayUnion({ //TODO: chatData
+        chatsData: arrayUnion({
+          //TODO: chatData
           messageId: newMessageRef.id,
           lastMessage: "",
           rId: user.id,
@@ -92,7 +101,7 @@ const LeftSidebar = () => {
   const setChat = async (item) => {
     setMessagesId(item.messageId);
     setChatUser(item);
-  }
+  };
 
   return (
     <div className="ls">
@@ -124,15 +133,28 @@ const LeftSidebar = () => {
             <p>{user.name}</p>
           </div>
         ) : (
-          chatsData.map((item, index) => ( //TODO: chatData
-            <div onClick={() => setChat(item)} key={index} className="friends">
-              <img src={item.userData.avatar} alt="" />
-              <div>
-                <p>{item.userData.name}</p>
-                <span>{item.lastMessage}</span>
+          chatsData.map(
+            (
+              item,
+              index //TODO: chatData
+            ) => (
+              <div
+                onClick={() => setChat(item)}
+                key={index}
+                className={`friends ${
+                  item.messageSeen || item.messageId === messagesId
+                    ? ""
+                    : "border"
+                }`}
+              >
+                <img src={item.userData.avatar} alt="" />
+                <div>
+                  <p>{item.userData.name}</p>
+                  <span>{item.lastMessage}</span>
+                </div>
               </div>
-            </div>
-          ))
+            )
+          )
         )}
       </div>
     </div>
