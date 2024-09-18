@@ -57,8 +57,14 @@ const ChatBox = () => {
 
   const convertTimestamp = (timestamp) => {
     let date = timestamp.toDate();
-    
-  }
+    const hour = date.getHours();
+    const minute = date.getMinutes();
+    if (hour > 12) {
+      return hour - 12 + ":" + minute + "PM";
+    } else {
+      return hour + ":" + minute + "AM";
+    }
+  };
 
   useEffect(() => {
     if (messagesId) {
@@ -98,7 +104,7 @@ const ChatBox = () => {
                 }
                 alt=""
               />
-              <p>2:30 PM</p>
+              <p>{convertTimestamp(msg.createdAt)}</p>
             </div>
           </div>;
         })}
