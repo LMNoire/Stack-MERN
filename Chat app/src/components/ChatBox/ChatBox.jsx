@@ -55,6 +55,11 @@ const ChatBox = () => {
     setInput("");
   };
 
+  const convertTimestamp = (timestamp) => {
+    let date = timestamp.toDate();
+    
+  }
+
   useEffect(() => {
     if (messagesId) {
       const unSub = onSnapshot(doc(db, "messages", messagesId), (res) => {
@@ -78,29 +83,25 @@ const ChatBox = () => {
       </div>
 
       <div className="chat-msg">
-        <div className="s-msg">
-          <p className="msg">Test text</p>
-          <div>
-            <img src={assets.profile_img} alt="" />
-            <p>2:30 PM</p>
-          </div>
-        </div>
-
-        <div className="s-msg">
-          <img className="msg-img" src={assets.pic1} alt="" />
-          <div>
-            <img src={assets.profile_img} alt="" />
-            <p>2:30 PM</p>
-          </div>
-        </div>
-
-        <div className="r-msg">
-          <p className="msg">Test text</p>
-          <div>
-            <img src={assets.profile_img} alt="" />
-            <p>2:30 PM</p>
-          </div>
-        </div>
+        {messages.map((msg, index) => {
+          <div
+            key={index}
+            className={msg.sId === userData.id ? "s-msg" : "r-msg"}
+          >
+            <p className="msg">{msg.text}</p>
+            <div>
+              <img
+                src={
+                  msg.sId === userData.id
+                    ? userData.avatar
+                    : chatUser.userData.avatar
+                }
+                alt=""
+              />
+              <p>2:30 PM</p>
+            </div>
+          </div>;
+        })}
       </div>
 
       <div className="chat-input">
