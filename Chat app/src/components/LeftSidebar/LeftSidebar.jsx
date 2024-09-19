@@ -22,7 +22,7 @@ const LeftSidebar = () => {
   const {
     userData,
     chatsData,
-    chatUser,
+    // chatUser,
     setChatUser,
     messagesId,
     setMessagesId,
