@@ -101,6 +101,16 @@ const LeftSidebar = () => {
   const setChat = async (item) => {
     setMessagesId(item.messageId);
     setChatUser(item);
+    const userChatsRef = doc(db, "chats", userData.id);
+    const userChatsSnapshot = await getDoc(userChatsRef);
+    const userChatsData = userChatsSnapshot.data();
+    const chatIndex = userChatsData.chatsData.findIndex(
+      (c) => c.messageId === item.messageId
+    );
+    userChatsData.chatsData[chatIndex].messageSeen = true;
+    await updateDoc(userChatsRef, {
+      chatData: userChatsData.chatsData 
+    })
   };
 
   return (
