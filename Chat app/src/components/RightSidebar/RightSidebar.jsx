@@ -10,11 +10,12 @@ const RightSidebar = () => {
   return chatUser ? (
     <div className="rs">
       <div className="rs-profile">
-        <img src={assets.profile_img} alt="" />
+        <img src={chatUser.userData.avatar} alt="" />
         <h3>
-          Richard Sanford <img className="dot" src={assets.green_dot} alt="" />
+          {chatUser.userData.name}{" "}
+          <img className="dot" src={assets.green_dot} alt="" />
         </h3>
-        <p>Hey, There i am Richard Sanford using chat app</p>
+        <p>{chatUser.userData.bio}</p>
       </div>
       <hr />
       <div className="rs-media">
