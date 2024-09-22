@@ -10,7 +10,6 @@ import {
 import {
   collection,
   doc,
-  getDoc,
   getDocs,
   getFirestore,
   query,
