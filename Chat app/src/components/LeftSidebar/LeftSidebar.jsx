@@ -26,6 +26,8 @@ const LeftSidebar = () => {
     setChatUser,
     messagesId,
     setMessagesId,
+    chatVisible,
+    setChatVisible,
   } = useContext(AppContext);
   const [user, setUser] = useState(null);
   const [showSearch, setShowSearch] = useState(false);
@@ -112,6 +114,7 @@ const LeftSidebar = () => {
       await updateDoc(userChatsRef, {
         chatsData: userChatsData.chatsData,
       });
+      setChatVisible(true);
     } catch (error) {
       console.error(error);
       toast.error(error.message);
@@ -119,7 +122,7 @@ const LeftSidebar = () => {
   };
 
   return (
-    <div className="ls">
+    <div className={`ls ${chatVisible ? "hidden" : ""}`}>
       <div className="ls-top">
         <div className="ls-nav">
           <img className="logo" src={assets.logo} alt="" />
