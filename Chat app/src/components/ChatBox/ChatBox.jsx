@@ -136,6 +136,12 @@ const ChatBox = () => {
           ) : null}
         </p>
         <img src={assets.help_icon} className="help" alt="" />
+        <img
+          onClick={() => setChatVisible(false)}
+          src={assets.arrow_icon}
+          className="arrow"
+          alt=""
+        />
       </div>
 
       <div className="chat-msg">
