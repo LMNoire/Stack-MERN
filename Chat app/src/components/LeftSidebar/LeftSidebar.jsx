@@ -14,7 +14,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { toast } from "react-toastify";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 
 const LeftSidebar = () => {
@@ -22,7 +22,7 @@ const LeftSidebar = () => {
   const {
     userData,
     chatsData,
-    // chatUser,
+    chatUser,
     setChatUser,
     messagesId,
     setMessagesId,
@@ -104,8 +104,8 @@ const LeftSidebar = () => {
         messageSeen: true,
         userData: uData,
       });
-      setShowSearch(false)
-      setChatVisible(true)
+      setShowSearch(false);
+      setChatVisible(true);
     } catch (error) {
       console.error(error);
       toast.error(error.message);
@@ -132,6 +132,18 @@ const LeftSidebar = () => {
       toast.error(error.message);
     }
   };
+
+  useEffect(() => {
+    const updateChatUserData = async () => {
+      if (chatUser) {
+        const userRef = doc(db, "users", chatUser.userData.id);
+        const userSnap = await getDoc(userRef);
+        const userData = userSnap.data();
+        setChatUser((prev) => ({ ...prev, userData: userData }));
+      }
+    };
+    updateChatUserData();
+  });
 
   return (
     <div className={`ls ${chatVisible ? "hidden" : ""}`}>
