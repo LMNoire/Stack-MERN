@@ -94,6 +94,18 @@ const LeftSidebar = () => {
           messageSeen: true,
         }),
       });
+      const uSnap = await getDoc(doc(db, "users", user.id));
+      const uData = uSnap.data();
+      setChat({
+        messagesId: newMessageRef.id,
+        lastMessage: "",
+        rId: user.id,
+        updatedAt: Date.now(),
+        messageSeen: true,
+        userData: uData,
+      });
+      setShowSearch(false)
+      setChatVisible(true)
     } catch (error) {
       console.error(error);
       toast.error(error.message);
